@@ -122,6 +122,9 @@ break;
 case 18:
  this.$ = new DeclaracionM($$[$0-4],$$[$0-2], this._$.first_line, this._$.first_column); 
 break;
+case 19:
+ this.$ = new Llamada($$[$0-4],$$[$0-2],this._$.first_line, this._$.first_column);
+break;
 case 20:
  this.$ = Tipo.INT; 
 break;
