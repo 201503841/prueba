@@ -1,0 +1,27 @@
+public class Prueba {
+    public void suma(int x, int y){
+         boolean prueba = true;
+         prueba = false;
+         System.out.println("Esto lo verás una vez");
+         
+         int contador = 0 ;
+        do{
+            System.out.println ("Contador" + (contador + 1) );
+            contador++;
+        } while (contador<10);
+        if ( a >= 5 ){
+            System.out.print("me rindo");
+            } else if (a < 5){
+             //hola
+             break;
+             continue;
+        }else{
+            hola = 12;
+            mifuncion(x,"cadena",true);
+            
+        }
+
+    }
+  
+    
+}
