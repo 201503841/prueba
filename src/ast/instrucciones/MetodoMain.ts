@@ -1,7 +1,7 @@
 import { Instruccion } from "../Instruccion"
 import { ValorGrafo } from "../grafo/ValorGrafo";
 
-export class Metodo extends Instruccion {
+export class MetodoMain extends Instruccion {
     parametros:Instruccion;
     id: String;
     /**

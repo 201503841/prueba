@@ -21,28 +21,34 @@ export class Clase extends Instruccion {
 
     translate() {
         if (this.instrucciones==null) {
-            return "class(){ \n constructor(){\n}\n}\n";
+            return "class(){\n}\n";
         } else{
-            let cadena = "class "+this.id+"{\n" + "constructor(){\n";
+            let cadena = "class "+this.id+"{\n";
         for (const ins of this.instrucciones) {
             cadena += ins.translate();
         }
-        return cadena+"\n}\n}\n";   
+        return cadena+"}\n";   
         }
         
     }
 
     generarGrafo(g: ValorGrafo, padre: String) {
-        let p= padre;
-        //Condicion
-       
+
+       let nombreHijo = "nodo" + g.contador;
+       g.grafo += "  " + nombreHijo + "[label=\" Id: " + this.id + "\"];\n";
+       g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
+       g.contador++;
+
+        
+        nombreHijo="nodo"+g.contador;
         
         //----------- LISTA DE INSTRUCCIONES -----------
-        let nombreHijo = "nodo"+g.contador;
-        g.grafo += "  "+nombreHijo +"[label=\"INSTRUCCIONES\"];\n";
+        g.grafo += "  "+nombreHijo +"[label=\"SENTECIAS_GLOBALES\"];\n";
         g.grafo += "  "+padre +" -> "+ nombreHijo+";\n";
         g.contador++;
+        
         padre = nombreHijo;
+
         for (let x = 0; x < this.instrucciones.length; x++) {
             let inst = this.instrucciones[x];
             nombreHijo = "nodo"+g.contador;
@@ -51,6 +57,7 @@ export class Clase extends Instruccion {
             g.contador++;
             inst.generarGrafo(g,nombreHijo);
         }
+        
         //----------------------------------------------
         return null;
     }

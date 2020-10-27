@@ -1,7 +1,7 @@
 import { Instruccion } from "../Instruccion"
 import { ValorGrafo } from "../grafo/ValorGrafo";
 
-export class LLamada extends Instruccion {
+export class Llamada extends Instruccion {
     
     id: String;
     parametros: Instruccion[];

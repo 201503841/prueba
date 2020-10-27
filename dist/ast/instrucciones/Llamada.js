@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LLamada = void 0;
+exports.Llamada = void 0;
 const Instruccion_1 = require("../Instruccion");
-class LLamada extends Instruccion_1.Instruccion {
+class Llamada extends Instruccion_1.Instruccion {
     /**
      * @class Instruccion Llamada
      * @param line linea de la instruccion
@@ -52,4 +52,4 @@ class LLamada extends Instruccion_1.Instruccion {
         return "LLAMADA";
     }
 }
-exports.LLamada = LLamada;
+exports.Llamada = Llamada;

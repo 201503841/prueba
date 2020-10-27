@@ -17,14 +17,14 @@ class AST extends Instruccion_1.Instruccion {
     generarGrafo(g, padre) {
         //---------------LISTA INSTRUCCION--------------+
         let nombreHijo = "nodo" + g.contador;
-        g.grafo += "  " + nombreHijo + "[label=\"INSTRUCCIONES\"];\n";
+        g.grafo += "  " + nombreHijo + "[label=\"LISTA_CLASES\"];\n";
         g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
         g.contador++;
         padre = nombreHijo;
         for (let x = 0; x < this.instrucciones.length; x++) {
             let inst = this.instrucciones[x];
             nombreHijo = "nodo" + g.contador;
-            g.grafo += "  " + nombreHijo + "[Label=\"" + inst.getNombreHijo() + "\"]'\n";
+            g.grafo += "  " + nombreHijo + "[label=\"" + inst.getNombreHijo() + "\"];\n";
             g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
             g.contador++;
             inst.generarGrafo(g, nombreHijo);

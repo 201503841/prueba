@@ -105,7 +105,7 @@
 ">"			  return 'mayorQue';
 "="			  return 'igual';
 
-\"[^\"]*\"				{ yytext = yytext.substr(1,yyleng-2); return 'cadena'; /*//"*/ }
+\"[^\"]*\"				{ yytext = yytext.substr(1,yyleng-2); return 'cadena'; /*//*/ }
 
 
 /* Espacios en blanco */
@@ -158,7 +158,7 @@ INSTRUCCIONES: INSTRUCCIONES CLASE { $1.push($2); $$ = $1;}
 ;
 
 CLASE: public_ TIPO_CLASE identificador llaveAbre SENTENCIAS_GLOBALES llaveCierra        { $$= new Clase($3,$5, this._$.first_line, this._$.first_column); }
-     | public_ TIPO_CLASE identificador llaveAbre llaveCierra                            { $$= new Clase($3,null, this._$.first_line, this._$.first_column); }                               
+     | public_ TIPO_CLASE identificador llaveAbre llaveCierra                            { $$= new Clase($3,[], this._$.first_line, this._$.first_column); }                               
      | error llaveCierra {console.error('Error sintáctico: ' + yytext + '| linea: ' + this._$.first_line + ' | columna: ' + this._$.first_column); }
 ;
 

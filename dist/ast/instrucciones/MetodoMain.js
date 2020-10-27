@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Metodo = void 0;
+exports.MetodoMain = void 0;
 const Instruccion_1 = require("../Instruccion");
-class Metodo extends Instruccion_1.Instruccion {
+class MetodoMain extends Instruccion_1.Instruccion {
     /**
      * @class La instruccion While realiza n iteraciones, dependiendo de la condicion
      * @param line linea de la instruccion while
@@ -38,4 +38,4 @@ class Metodo extends Instruccion_1.Instruccion {
         return "METODO";
     }
 }
-exports.Metodo = Metodo;
+exports.MetodoMain = MetodoMain;

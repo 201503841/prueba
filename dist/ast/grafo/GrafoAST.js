@@ -7,7 +7,7 @@ class GrafoAST {
         this.arbol = arbol;
     }
     getGrafo() {
-        let grafo = "diagraph G{\n\n ";
+        let grafo = "digraph G{\n\n ";
         grafo += " nodo0[label=\"AST\"];\n";
         var g = new ValorGrafo_1.ValorGrafo(1, grafo);
         this.arbol.generarGrafo(g, "nodo0");

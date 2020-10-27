@@ -17,23 +17,24 @@ export class AST extends Instruccion{
     
     translate(){
         let cadena="";
+        
         this.instrucciones.forEach(element => {
             cadena+=element.translate();
-            
         });
         return cadena;
     }
     generarGrafo(g: ValorGrafo, padre:String){
         //---------------LISTA INSTRUCCION--------------+
         let nombreHijo:String = "nodo"+g.contador;
-        g.grafo += "  "+nombreHijo + "[label=\"INSTRUCCIONES\"];\n";
+        g.grafo += "  "+nombreHijo + "[label=\"LISTA_CLASES\"];\n";
         g.grafo += "  "+padre + " -> "+nombreHijo+";\n";
         g.contador++;
-        padre= nombreHijo;
+        padre = nombreHijo;
+
         for(let x=0; x< this.instrucciones.length; x++){
             let inst=this.instrucciones[x];
             nombreHijo="nodo"+g.contador;
-            g.grafo+= "  "+nombreHijo + "[Label=\""+inst.getNombreHijo()+"\"]'\n";
+            g.grafo+= "  "+nombreHijo + "[label=\""+inst.getNombreHijo()+"\"];\n";
             g.grafo+= "  "+padre +" -> "+ nombreHijo+";\n";
             g.contador++;
             inst.generarGrafo(g,nombreHijo);

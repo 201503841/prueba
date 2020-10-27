@@ -99,7 +99,7 @@ case 4:
  this.$= new Clase($$[$0-3],$$[$0-1], this._$.first_line, this._$.first_column); 
 break;
 case 5:
- this.$= new Clase($$[$0-2],null, this._$.first_line, this._$.first_column); 
+ this.$= new Clase($$[$0-2],[], this._$.first_line, this._$.first_column); 
 break;
 case 6: case 11:
 console.error('Error sintáctico: ' + yytext + '| linea: ' + this._$.first_line + ' | columna: ' + this._$.first_column); 
@@ -987,7 +987,7 @@ case 53:return 72;
 break;
 case 54:return 58;
 break;
-case 55: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 85; /*//"*/ 
+case 55: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 85; /*//*/ 
 break;
 case 56:
 break;

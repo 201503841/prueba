@@ -51,12 +51,6 @@ export class Declaracion extends Instruccion {
 
         //Identificador
         nombreHijo = "nodo" + g.contador;
-        /*let losIds = ""
-        for(let i = 0; i<listaIds.length; i++){
-            losIds += listaIds[i]+",";
-        }
-        g.grafo += "  " + nombreHijo + "[label=\" Id: " + losIds + "\"];\n";
-        */
         g.grafo += "  " + nombreHijo + "[label=\" Id: " + this.id + "\"];\n";
         g.grafo += "  " + padreHijo + " -> " + nombreHijo + ";\n";
         g.contador++;

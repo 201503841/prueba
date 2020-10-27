@@ -8,14 +8,14 @@ function AnalizarJava(entrada) {
     console.log(entrada);
     console.log("***********************************");
     let codigo = ` 
-        numeric a=0.0;
-        while(true){ 
-            a = "hola"+":)"+59.5*12.2+(10.9*12.12-56.56/0.1);
-            print(a+b||c>d);
-        }
+    public class Prueba {
+        
+    }
     `;
     // Analisis Lexico y Sintactico
     let ast = Gramatica.parse(codigo);
+    //let ast = Gramatica.parse(entrada) as AST;
+    console.log(ast);
     //Generacion de grafo
     let nuevoCodigo = ast.translate();
     console.log("\n\n---------------- TRADUCCION ----------------\n");

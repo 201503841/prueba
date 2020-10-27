@@ -5,9 +5,9 @@ const Analisis_1 = require("./Analisis");
 exports.analizar = (req, res) => {
     //console.log("query: ",req.query.codigo)
     let codigo = req.query.codigo;
+    console.log(codigo);
     //let respuesta = codigo;
     let respuesta = Analisis_1.AnalizarJava(codigo);
-    //console.log(respuesta);
     //console.log("params: ",req.params)
     let a = [{ 'analisis': respuesta }, { 'grafo': 'reporteAST' }, { 'errores': 'reporteErrores' }];
     res.send(a);
