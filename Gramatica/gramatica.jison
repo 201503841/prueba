@@ -20,6 +20,8 @@
       const { MetodoMain } = require("../dist/ast/instrucciones/MetodoMain");
       const { Print } = require("../dist/ast/instrucciones/Print");
       const { Return } = require("../dist/ast/instrucciones/Return");
+      const { Break } = require("../dist/ast/instrucciones/Break");
+      const { Continue } = require("../dist/ast/instrucciones/Continue");
       const { While } = require("../dist/ast/instrucciones/While");
 	const { OpAritmetica } = require("../dist/ast/expresiones/OpAritmetica");
 	const { OpLogicas } = require("../dist/ast/expresiones/OpLogicas");
@@ -203,7 +205,7 @@ PARAMETROSI: PARAMETROSI coma TIPO identificador     { $1.push($4); $$=$1; }
 ;
 
 
-PARAMETROS: PARAMETROS coma EXPRESION           { $1.push($3); $$=$1; }
+PARAMETROS: PARAMETROS coma EXPRESION           { $1.push($3); $$=$1; }   
           | EXPRESION                           {$$=[$1];}
           
 ;
@@ -211,7 +213,7 @@ PARAMETROS: PARAMETROS coma EXPRESION           { $1.push($3); $$=$1; }
 
 
 BLOQUE_SENTENCIAS: llaveAbre LISTA_SENTENCIAS llaveCierra          { $$ = $2; }
-                 | llaveAbre llaveCierra                           
+                 | llaveAbre llaveCierra                           { $$= [];}
 ;
 
 LISTA_SENTENCIAS: LISTA_SENTENCIAS SENTENCIAS         {$1.push($2); $$=$1;}
@@ -241,13 +243,14 @@ BLOQUE_REPETICION: llaveAbre SENTENCIAS_REPETICION llaveCierra       { $$ = $2; 
 
 
 SENTENCIAS_REPETICION: SENTENCIAS_REPETICION REPETICION       {$1.push($2); $$=$1; }
-                     | REPETICION                             { $$=[$1];}             
+                     | REPETICION                             { $$=[$1];}    
+        
 ;
 
 REPETICION: IF                                               { $$ = $1; }
           | FOR                                              { $$ = $1; }
-          | break_ puntoComa                                 { $$ = $1; }
-          | continue_ puntoComa                              { $$ = $1; }
+          | break_ puntoComa                                 { $$ = new Break( $1, this._$.first_line, this._$.first_column); }
+          | continue_ puntoComa                              { $$ = new Continue( $1, this._$.first_line, this._$.first_column); }
           | WHILE                                            { $$ = $1; }
           | DO_WHILE                                         { $$ = $1; }
           | PRINT                                            { $$ = $1; }
@@ -263,7 +266,7 @@ CONTADOR: identificador incremento                    { $$= new Contador($1, $2,
 
 
 DECLARACION_VARIABLE: TIPO identificador igual EXPRESION     { $$= new Declaracion($1, $2, $4, this._$.first_line, this._$.first_column); }
-                 |TIPO identificador                         { $$= new Declaracion($1, $2, null, this._$.first_line, this._$.first_column); }
+                 |TIPO identificador                         { $$= new Declaracion($1, $2, [], this._$.first_line, this._$.first_column); }
 ;
 
 ASIGNACION_VARIABLE: identificador igual EXPRESION { $$ = new Asignacion($1, $3, this._$.first_line, this._$.first_column); }
@@ -284,9 +287,9 @@ IF: if_  CONDICION  BLOQUE_REPETICION             { $$ = new If($2, $3, this._$.
   | if_  CONDICION  BLOQUE_REPETICION ELSE        { $$ = new If($2, $3, this._$.first_line, this._$.first_column); }
 ;
   
-ELSEIF: else_ if_  CONDICION  BLOQUE_REPETICION          { $$ = new ElseIf($2, $3, this._$.first_line, this._$.first_column); }
-      | else_ if_  CONDICION  BLOQUE_REPETICION ELSEIF   { $$ = new ElseIf($2, $3, this._$.first_line, this._$.first_column); }
-      | else_ if_  CONDICION  BLOQUE_REPETICION ELSE     { $$ = new ElseIf($2, $3, this._$.first_line, this._$.first_column); }
+ELSEIF: else_ if_  CONDICION  BLOQUE_REPETICION          { $$ = new ElseIf($3, $4, this._$.first_line, this._$.first_column); }
+      | else_ if_  CONDICION  BLOQUE_REPETICION ELSEIF   { $$ = new ElseIf($3, $4, this._$.first_line, this._$.first_column); }
+      | else_ if_  CONDICION  BLOQUE_REPETICION ELSE     { $$ = new ElseIf($3, $4, this._$.first_line, this._$.first_column); }
 ;
 
 
@@ -327,7 +330,7 @@ PRIMITIVO : decimal		             { $$ = new Primitivo( $1, this._$.first_line, 
 	| true_			             { $$ = new Primitivo( true, this._$.first_line, this._$.first_column); }
 	| false_		                   { $$ = new Primitivo( false, this._$.first_line, this._$.first_column); }
 	| identificador                      { $$ = new Identificador( $1, this._$.first_line, this._$.first_column); }
-      | entero                             {$$=Number($1);}
+      | entero                             { $$ = new Primitivo( $1, this._$.first_line, this._$.first_column); }
       
 ;
 

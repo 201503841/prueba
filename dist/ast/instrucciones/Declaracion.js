@@ -6,31 +6,33 @@ class Declaracion extends Instruccion_1.Instruccion {
     /**
      * @class La instruccion declaracion, inserta una nueva variable en la tabla de simbolos
      * @param id identificador de la variable
-     * @param type tipo de la variable
+     * @param tipo tipo de la variable
      * @param line linea donde se declaro la variable
      * @param column columna donde se declaro la variable
      * @param valor valor de la expresion asociada a la variable
      */
-    constructor(type, id, valor, line, column) {
+    constructor(tipo, id, valor, line, column) {
         super(line, column);
         this.id = id;
-        this.type = type;
+        this.tipo = tipo;
         this.valor = valor;
     }
     translate() {
         // int a = 0;
         if (this.valor == null) {
-            return "var " + this.id + ";\n";
+            let cadena = "var " + this.id + ";\n";
+            return cadena;
         }
         else {
-            return "var " + this.id + " = " + this.valor.translate() + ";\n";
+            let cadena = "var " + this.id + " = " + this.valor.translate() + ";\n";
+            return cadena;
         }
     }
     generarGrafo(g, padre) {
         let padreAux = padre; //Auxiar con nombre del padre
         //Tipo
         let nombreHijo = "nodo" + g.contador;
-        g.grafo += "  " + nombreHijo + "[label=\" Tipo: " + this.type.toString() + "\"];\n";
+        g.grafo += "  " + nombreHijo + "[label=\" Tipo: " + this.tipo.toString() + "\"];\n";
         g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
         g.contador++;
         // Id

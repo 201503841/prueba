@@ -14,7 +14,7 @@ class Print extends Instruccion_1.Instruccion {
         this.expresion = expresion;
     }
     translate() {
-        return "console.log(" + this.expresion.translate() + ");\n";
+        return "console.log(\"" + this.expresion.translate() + "\");\n";
     }
     generarGrafo(g, padre) {
         let nombreHijo = "nodo" + g.contador;

@@ -15,7 +15,7 @@ export class Print extends Instruccion {
     }
 
     translate() {
-        return "console.log("+this.expresion.translate()+");\n";
+        return "console.log(\""+this.expresion.translate()+"\");\n";
     }
 
     generarGrafo(g: ValorGrafo, padre: String) {

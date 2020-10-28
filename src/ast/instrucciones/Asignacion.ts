@@ -29,6 +29,7 @@ export class Asignacion extends Instruccion {
         g.grafo += "  "+padre +" -> "+ nombreHijo+";\n";
         g.contador++;
         
+        padre = nombreHijo;
         
         nombreHijo = "nodo"+g.contador;
         g.grafo += "  "+nombreHijo +"[label=\""+this.valor.getNombreHijo()+"\"];\n";

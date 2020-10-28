@@ -110,7 +110,7 @@ break;
 case 9: case 32:
 $$[$0-1].push($$[$0]); this.$=$$[$0-1];
 break;
-case 13: case 30: case 41: case 42: case 44: case 45: case 51: case 52: case 56: case 57: case 59: case 93:
+case 13: case 30: case 41: case 42: case 44: case 45: case 56: case 57: case 59: case 93:
  this.$ = $$[$0-1]; 
 break;
 case 16:
@@ -155,6 +155,9 @@ break;
 case 29:
 this.$=[$$[$0]];
 break;
+case 31:
+ this.$= [];
+break;
 case 46:
  this.$ = []; 
 break;
@@ -164,6 +167,12 @@ break;
 case 48:
  this.$=[$$[$0]];
 break;
+case 51:
+ this.$ = new Break( $$[$0-1], this._$.first_line, this._$.first_column); 
+break;
+case 52:
+ this.$ = new Continue( $$[$0-1], this._$.first_line, this._$.first_column); 
+break;
 case 60: case 61:
  this.$= new Contador($$[$0-1], $$[$0], this._$.first_line, this._$.first_column); 
 break;
@@ -171,7 +180,7 @@ case 62:
  this.$= new Declaracion($$[$0-3], $$[$0-2], $$[$0], this._$.first_line, this._$.first_column); 
 break;
 case 63:
- this.$= new Declaracion($$[$0-1], $$[$0], null, this._$.first_line, this._$.first_column); 
+ this.$= new Declaracion($$[$0-1], $$[$0], [], this._$.first_line, this._$.first_column); 
 break;
 case 64:
  this.$ = new Asignacion($$[$0-2], $$[$0], this._$.first_line, this._$.first_column); 
@@ -192,10 +201,10 @@ case 69: case 70:
  this.$ = new If($$[$0-2], $$[$0-1], this._$.first_line, this._$.first_column); 
 break;
 case 71:
- this.$ = new ElseIf($$[$0-2], $$[$0-1], this._$.first_line, this._$.first_column); 
+ this.$ = new ElseIf($$[$0-1], $$[$0], this._$.first_line, this._$.first_column); 
 break;
 case 72: case 73:
- this.$ = new ElseIf($$[$0-3], $$[$0-2], this._$.first_line, this._$.first_column); 
+ this.$ = new ElseIf($$[$0-2], $$[$0-1], this._$.first_line, this._$.first_column); 
 break;
 case 74:
  this.$ = new Else($$[$0], this._$.first_line, this._$.first_column); 
@@ -254,7 +263,7 @@ break;
 case 92:
  this.$ = new OpAritmetica( TypeOperation.MENOSUNARIO, $$[$0], null, this._$.first_line, this._$.first_column); 
 break;
-case 96: case 97:
+case 96: case 97: case 101:
  this.$ = new Primitivo( $$[$0], this._$.first_line, this._$.first_column); 
 break;
 case 98:
@@ -265,9 +274,6 @@ case 99:
 break;
 case 100:
  this.$ = new Identificador( $$[$0], this._$.first_line, this._$.first_column); 
-break;
-case 101:
-this.$=Number($$[$0]);
 break;
 case 102:
  this.$ = new Print( $$[$0-1], this._$.first_line, this._$.first_column); 
@@ -541,6 +547,8 @@ _handle_error:
       const { MetodoMain } = require("../dist/ast/instrucciones/MetodoMain");
       const { Print } = require("../dist/ast/instrucciones/Print");
       const { Return } = require("../dist/ast/instrucciones/Return");
+      const { Break } = require("../dist/ast/instrucciones/Break");
+      const { Continue } = require("../dist/ast/instrucciones/Continue");
       const { While } = require("../dist/ast/instrucciones/While");
 	const { OpAritmetica } = require("../dist/ast/expresiones/OpAritmetica");
 	const { OpLogicas } = require("../dist/ast/expresiones/OpLogicas");

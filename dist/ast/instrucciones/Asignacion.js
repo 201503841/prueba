@@ -25,6 +25,7 @@ class Asignacion extends Instruccion_1.Instruccion {
         g.grafo += "  " + nombreHijo + "[label=\" Id: " + this.id + "\"];\n";
         g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
         g.contador++;
+        padre = nombreHijo;
         nombreHijo = "nodo" + g.contador;
         g.grafo += "  " + nombreHijo + "[label=\"" + this.valor.getNombreHijo() + "\"];\n";
         g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";

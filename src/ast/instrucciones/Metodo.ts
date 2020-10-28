@@ -10,7 +10,7 @@ export class Metodo extends Instruccion {
 
 
     /**
-     * @class La instruccion While realiza n iteraciones, dependiendo de la condicion
+     * @class La instruccion METODO realiza n iteraciones, dependiendo de la condicion
      * @param line linea de la instruccion while
      * @param column columna de la instruccion while
      * @param parametros condicion del ciclo
@@ -25,36 +25,28 @@ export class Metodo extends Instruccion {
     }
 
     translate() {
+        if (this.instrucciones==null) {
+            let cadena = "function " + this.id+" ("+this.parametros+"){\n }";
+            return cadena;
+        } else{
+            let cadena = "function " + this.id+" ("+this.parametros+"){\n";
+            for (const ins of this.instrucciones) {
+                cadena += ins.translate();
+            }
+            return cadena+"\n }\n";
+        }
 
-        let cadena = "function" + this.id+"(";
-        for (const ins of this.parametros) {
-            cadena += ins.translate() + ",";
-        }
-        cadena += "){\n";
-        for (const ins of this.instrucciones) {
-            cadena += ins.translate();
-        }
-        return cadena+"\n}\n";
+
+        
     }
 
     generarGrafo(g: ValorGrafo, padre: String) {
         let p= padre;
-
+        //Condicion
         let nombreHijo = "nodo"+g.contador;
-        g.grafo += "  "+nombreHijo +"[label=\"PARAMETROS\"];\n";
+        g.grafo += "  "+nombreHijo +"[label=\"PARAMETROS: " +this.parametros+" \"];\n";
         g.grafo += "  "+padre +" -> "+ nombreHijo+";\n";
         g.contador++;
-        padre = nombreHijo;
-        for (let x = 0; x < this.parametros.length; x++) {
-            let inst = this.parametros[x];
-            nombreHijo = "nodo"+g.contador;
-            g.grafo += "  "+nombreHijo +"[label=\""+inst.getNombreHijo()+"\"];\n";
-            g.grafo += "  "+padre +" -> "+ nombreHijo+";\n";
-            g.contador++;
-            inst.generarGrafo(g,nombreHijo);
-        }
-        
-        padre = p;
         
         //----------- LISTA DE INSTRUCCIONES -----------
         nombreHijo = "nodo"+g.contador;

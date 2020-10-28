@@ -4,7 +4,7 @@ exports.Metodo = void 0;
 const Instruccion_1 = require("../Instruccion");
 class Metodo extends Instruccion_1.Instruccion {
     /**
-     * @class La instruccion While realiza n iteraciones, dependiendo de la condicion
+     * @class La instruccion METODO realiza n iteraciones, dependiendo de la condicion
      * @param line linea de la instruccion while
      * @param column columna de la instruccion while
      * @param parametros condicion del ciclo
@@ -18,32 +18,25 @@ class Metodo extends Instruccion_1.Instruccion {
         this.instrucciones = instrucciones;
     }
     translate() {
-        let cadena = "function" + this.id + "(";
-        for (const ins of this.parametros) {
-            cadena += ins.translate() + ",";
+        if (this.instrucciones == null) {
+            let cadena = "function " + this.id + " (" + this.parametros + "){\n }";
+            return cadena;
         }
-        cadena += "){\n";
-        for (const ins of this.instrucciones) {
-            cadena += ins.translate();
+        else {
+            let cadena = "function " + this.id + " (" + this.parametros + "){\n";
+            for (const ins of this.instrucciones) {
+                cadena += ins.translate();
+            }
+            return cadena + "\n }\n";
         }
-        return cadena + "\n}\n";
     }
     generarGrafo(g, padre) {
         let p = padre;
+        //Condicion
         let nombreHijo = "nodo" + g.contador;
-        g.grafo += "  " + nombreHijo + "[label=\"PARAMETROS\"];\n";
+        g.grafo += "  " + nombreHijo + "[label=\"PARAMETROS: " + this.parametros + " \"];\n";
         g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
         g.contador++;
-        padre = nombreHijo;
-        for (let x = 0; x < this.parametros.length; x++) {
-            let inst = this.parametros[x];
-            nombreHijo = "nodo" + g.contador;
-            g.grafo += "  " + nombreHijo + "[label=\"" + inst.getNombreHijo() + "\"];\n";
-            g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
-            g.contador++;
-            inst.generarGrafo(g, nombreHijo);
-        }
-        padre = p;
         //----------- LISTA DE INSTRUCCIONES -----------
         nombreHijo = "nodo" + g.contador;
         g.grafo += "  " + nombreHijo + "[label=\"INSTRUCCIONES\"];\n";

@@ -9,8 +9,21 @@ function AnalizarJava(entrada) {
     console.log("***********************************");
     let codigo = ` 
     public class Prueba {
-        
+        public void suma(int x, int y){
+            boolean prueba = true;
+            prueba = false;
+            System.out.println("Esto lo verás una vez");
+            int contador =0;
+            if ( a >= 5 ){
+                break;
+                continue;
+            } else if (a < 5){
+                System.out.println("Sofi ya no te despiertes mas");
+           }
+            
+        } 
     }
+
     `;
     // Analisis Lexico y Sintactico
     let ast = Gramatica.parse(codigo);

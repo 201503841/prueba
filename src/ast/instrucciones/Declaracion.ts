@@ -6,29 +6,31 @@ import { Tipo } from "../Tipo";
 export class Declaracion extends Instruccion {
     id: String;
     valor: Instruccion;
-    type: Tipo;
+    tipo: Tipo;
 
     /**
      * @class La instruccion declaracion, inserta una nueva variable en la tabla de simbolos
      * @param id identificador de la variable
-     * @param type tipo de la variable
+     * @param tipo tipo de la variable
      * @param line linea donde se declaro la variable
      * @param column columna donde se declaro la variable
      * @param valor valor de la expresion asociada a la variable
      */
-    constructor(type: Tipo, id: String, valor: Instruccion, line: Number, column: Number) {
+    constructor(tipo: Tipo, id: String, valor: Instruccion, line: Number, column: Number) {
         super(line, column)
         this.id = id;
-        this.type = type;
+        this.tipo = tipo;
         this.valor = valor;
     }
 
     translate() {
         // int a = 0;
         if (this.valor==null) {
-            return "var " +this.id +";\n";
+            let cadena= "var " +this.id +";\n";
+            return cadena;
         } else{
-            return "var "+ this.id+" = "+ this.valor.translate() +";\n";
+            let cadena= "var " + this.id + " = " + this.valor.translate() +  ";\n";
+            return cadena;
         }
         
     }
@@ -37,7 +39,7 @@ export class Declaracion extends Instruccion {
         
         //Tipo
         let nombreHijo = "nodo" + g.contador;
-        g.grafo += "  " + nombreHijo + "[label=\" Tipo: " + this.type.toString() + "\"];\n";
+        g.grafo += "  " + nombreHijo + "[label=\" Tipo: " + this.tipo.toString() + "\"];\n";
         g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
         g.contador++;
 
