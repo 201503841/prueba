@@ -9,18 +9,29 @@ class If extends Instruccion_1.Instruccion {
      * @param column columna de la instruccion while
      * @param condicion condicion del ciclo
      * @param instrucciones lista de sentencias o instrucciones dentro del while
+     * @param elses
      */
-    constructor(condicion, instrucciones, line, column) {
+    constructor(condicion, instrucciones, elses, line, column) {
         super(line, column);
         this.condicion = condicion;
         this.instrucciones = instrucciones;
+        this.elses = elses;
     }
     translate() {
         let cadena = "if(" + this.condicion.translate() + "){\n";
         for (const ins of this.instrucciones) {
             cadena += ins.translate();
         }
-        return cadena + "\n}\n";
+        cadena = cadena + "}";
+        if (this.elses == null) {
+            return cadena;
+        }
+        else {
+            for (var ins of this.elses) {
+                cadena += ins.translate();
+            }
+            return cadena + "\n";
+        }
     }
     generarGrafo(g, padre) {
         let p = padre;
@@ -44,6 +55,21 @@ class If extends Instruccion_1.Instruccion {
         padre = nombreHijo;
         for (let x = 0; x < this.instrucciones.length; x++) {
             let inst = this.instrucciones[x];
+            nombreHijo = "nodo" + g.contador;
+            g.grafo += "  " + nombreHijo + "[label=\"" + inst.getNombreHijo() + "\"];\n";
+            g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
+            g.contador++;
+            inst.generarGrafo(g, nombreHijo);
+        }
+        padre = p;
+        //----------- LISTA DE ELSE -----------
+        nombreHijo = "nodo" + g.contador;
+        g.grafo += "  " + nombreHijo + "[label=\"ELSE\"];\n";
+        g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
+        g.contador++;
+        padre = nombreHijo;
+        for (let x = 0; x < this.elses.length; x++) {
+            let inst = this.elses[x];
             nombreHijo = "nodo" + g.contador;
             g.grafo += "  " + nombreHijo + "[label=\"" + inst.getNombreHijo() + "\"];\n";
             g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";

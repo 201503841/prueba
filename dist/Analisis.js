@@ -18,10 +18,11 @@ function AnalizarJava(entrada) {
                 break;
                 continue;
             } else if (a < 5){
-                System.out.println("Sofi ya no te despiertes mas");
-           }
-            
-        } 
+                continue;
+            }else{
+                hola = 12;  
+            }
+        }
     }
 
     `;

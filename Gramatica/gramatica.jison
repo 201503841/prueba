@@ -282,16 +282,13 @@ DO_WHILE:  do_ BLOQUE_REPETICION while_  CONDICION  puntoComa       { $$ = new D
 ;
 
 
-IF: if_  CONDICION  BLOQUE_REPETICION             { $$ = new If($2, $3, this._$.first_line, this._$.first_column); }
-  | if_  CONDICION  BLOQUE_REPETICION ELSEIF      { $$ = new If($2, $3, this._$.first_line, this._$.first_column); }
-  | if_  CONDICION  BLOQUE_REPETICION ELSE        { $$ = new If($2, $3, this._$.first_line, this._$.first_column); }
-;
-  
-ELSEIF: else_ if_  CONDICION  BLOQUE_REPETICION          { $$ = new ElseIf($3, $4, this._$.first_line, this._$.first_column); }
-      | else_ if_  CONDICION  BLOQUE_REPETICION ELSEIF   { $$ = new ElseIf($3, $4, this._$.first_line, this._$.first_column); }
-      | else_ if_  CONDICION  BLOQUE_REPETICION ELSE     { $$ = new ElseIf($3, $4, this._$.first_line, this._$.first_column); }
+IF: if_  CONDICION  BLOQUE_REPETICION                                { $$ = new If($2, $3, [], this._$.first_line, this._$.first_column); }
+  | if_  CONDICION  BLOQUE_REPETICION ELSE                           { $$ = new If($2, $3, [$4], this._$.first_line, this._$.first_column); }
+  | if_  CONDICION  BLOQUE_REPETICION ELSEIF                         { $$ = new If($2, $3, [$4], this._$.first_line, this._$.first_column); }
 ;
 
+ELSEIF: else_ IF                              { $$ = new ElseIf([$2], this._$.first_line, this._$.first_column); } 
+;
 
 ELSE: else_ BLOQUE_REPETICION                 { $$ = new Else($2, this._$.first_line, this._$.first_column); } 
 ;
