@@ -15,19 +15,29 @@ class Return extends Instruccion_1.Instruccion {
     }
     translate() {
         if (this.expresion == null) {
-            return "Return;\n";
+            return "Return();\n";
         }
         else {
             return "Return(" + this.expresion.translate() + ");\n";
         }
     }
     generarGrafo(g, padre) {
-        let nombreHijo = "nodo" + g.contador;
-        g.grafo += "  " + nombreHijo + "[label=\"" + this.expresion.getNombreHijo() + "\"];\n";
-        g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
-        g.contador++;
-        this.expresion.generarGrafo(g, nombreHijo);
-        return null;
+        if (this.expresion == null) {
+            //Condicion
+            let nombreHijo = "nodo" + g.contador;
+            g.grafo += "  " + nombreHijo + "[label=\"vacio\"];\n";
+            g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
+            g.contador++;
+            padre = nombreHijo;
+        }
+        else {
+            let nombreHijo = "nodo" + g.contador;
+            g.grafo += "  " + nombreHijo + "[label=\"" + this.expresion.getNombreHijo() + "\"];\n";
+            g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
+            g.contador++;
+            this.expresion.generarGrafo(g, nombreHijo);
+            return null;
+        }
     }
     getNombreHijo() {
         return "RETURN";

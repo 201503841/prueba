@@ -19,7 +19,7 @@ export class Primitivo extends Instruccion {
     }
     generarGrafo(g: ValorGrafo, padre: String) {
         let nombreHijo = "nodo"+g.contador;
-        g.grafo += "  "+nombreHijo +"[label=\""+ this.valor.toString() +"\"];\n";
+        g.grafo += "  "+nombreHijo +"[label=\""+ this.valor +"\"];\n";
         g.grafo += "  "+padre +" -> "+ nombreHijo+";\n";
         g.contador++;
         return null;

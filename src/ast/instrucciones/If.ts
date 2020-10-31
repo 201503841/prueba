@@ -30,7 +30,7 @@ export class If extends Instruccion {
         if (this.elses==null){
             return cadena;
         }else{
-            
+
             for (var ins of this.elses) { 
                 cadena+=ins.translate();
             }
@@ -75,11 +75,11 @@ export class If extends Instruccion {
         padre = p;
         
         //----------- LISTA DE ELSE -----------
-         nombreHijo = "nodo"+g.contador;
+        /* nombreHijo = "nodo"+g.contador;
         g.grafo += "  "+nombreHijo +"[label=\"ELSE\"];\n";
         g.grafo += "  "+padre +" -> "+ nombreHijo+";\n";
-        g.contador++;
-        padre = nombreHijo;
+        g.contador++;*/
+        //padre = nombreHijo;
         for (let x = 0; x < this.elses.length; x++) {
             let inst = this.elses[x];
             nombreHijo = "nodo"+g.contador;

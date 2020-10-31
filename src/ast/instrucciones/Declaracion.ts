@@ -24,6 +24,7 @@ export class Declaracion extends Instruccion {
     }
 
     translate() {
+        
         // int a = 0;
         if (this.valor==null) {
             let cadena= "var " +this.id +";\n";
@@ -32,6 +33,7 @@ export class Declaracion extends Instruccion {
             let cadena= "var " + this.id + " = " + this.valor.translate() +  ";\n";
             return cadena;
         }
+        
         
     }
     generarGrafo(g: ValorGrafo, padre: String) {

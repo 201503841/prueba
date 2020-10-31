@@ -63,11 +63,11 @@ class If extends Instruccion_1.Instruccion {
         }
         padre = p;
         //----------- LISTA DE ELSE -----------
-        nombreHijo = "nodo" + g.contador;
-        g.grafo += "  " + nombreHijo + "[label=\"ELSE\"];\n";
-        g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
-        g.contador++;
-        padre = nombreHijo;
+        /* nombreHijo = "nodo"+g.contador;
+        g.grafo += "  "+nombreHijo +"[label=\"ELSE\"];\n";
+        g.grafo += "  "+padre +" -> "+ nombreHijo+";\n";
+        g.contador++;*/
+        //padre = nombreHijo;
         for (let x = 0; x < this.elses.length; x++) {
             let inst = this.elses[x];
             nombreHijo = "nodo" + g.contador;

@@ -16,23 +16,22 @@ class Llamada extends Instruccion_1.Instruccion {
         this.parametros = parametros;
     }
     translate() {
-        let cadena = this.id + "(";
+        let cadena = this.id + " (";
         for (const ins of this.parametros) {
             cadena += ins.translate() + ",";
         }
-        cadena = ");";
+        cadena += ");";
         return cadena;
     }
     generarGrafo(g, padre) {
         let p = padre;
-        //Identificador
+        //Condicion
         let nombreHijo = "nodo" + g.contador;
         g.grafo += "  " + nombreHijo + "[label=\" Id: " + this.id + "\"];\n";
         g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
         g.contador++;
-        this.generarGrafo(g, nombreHijo);
-        padre = p;
-        //----------- LISTA DE PARAMETROS -----------
+        padre = nombreHijo;
+        //----------- LISTA DE INSTRUCCIONES -----------
         nombreHijo = "nodo" + g.contador;
         g.grafo += "  " + nombreHijo + "[label=\"PARAMETROS\"];\n";
         g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";

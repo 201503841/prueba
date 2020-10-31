@@ -1,10 +1,11 @@
 import { Instruccion } from "../Instruccion"
 import { ValorGrafo } from "../grafo/ValorGrafo";
+import { Primitivo } from "../expresiones/Primitivo";
 
 export class Llamada extends Instruccion {
-    
+    parametros:Array<Instruccion>;
     id: String;
-    parametros: Instruccion[];
+    
     /**
      * @class Instruccion Llamada
      * @param line linea de la instruccion 
@@ -12,7 +13,7 @@ export class Llamada extends Instruccion {
      * @param id
      * @param parametros oarametros
      */
-    constructor(id:String,parametros:Instruccion[],line:Number, column:Number){
+    constructor(id:String,parametros:Array<Instruccion>,line:Number, column:Number){
         super(line,column);
         this.id=id;
         this.parametros=parametros;
@@ -20,33 +21,38 @@ export class Llamada extends Instruccion {
     }
 
     translate() {
-        let cadena = this.id+"(";
-        for (const ins of this.parametros) {
-            cadena += ins.translate() + ",";
-        }
-        cadena = ");";
-        return cadena;
+
+        
+         let cadena = this.id+" (";
+         for (const ins of this.parametros){
+             cadena += ins.translate() + ",";
+         }
+            cadena+= ");";
+         return cadena;
+
+      
+        
     }
 
     generarGrafo(g: ValorGrafo, padre: String) {
-        let p= padre;
 
-         //Identificador
-         let nombreHijo = "nodo"+g.contador;
+        let p= padre;
+        //Condicion
+        
+        let nombreHijo = "nodo"+g.contador;
          g.grafo += "  "+nombreHijo +"[label=\" Id: "+this.id+"\"];\n";
          g.grafo += "  "+padre +" -> "+ nombreHijo+";\n";
          g.contador++;
-         this.generarGrafo(g, nombreHijo);
-        
-        
-        padre = p;
+         
+         padre = nombreHijo;
 
-
-        //----------- LISTA DE PARAMETROS -----------
+         
+         //----------- LISTA DE INSTRUCCIONES -----------
         nombreHijo = "nodo"+g.contador;
         g.grafo += "  "+nombreHijo +"[label=\"PARAMETROS\"];\n";
         g.grafo += "  "+padre +" -> "+ nombreHijo+";\n";
         g.contador++;
+
         padre = nombreHijo;
         for (let x = 0; x < this.parametros.length; x++) {
             let inst = this.parametros[x];
@@ -56,7 +62,12 @@ export class Llamada extends Instruccion {
             g.contador++;
             inst.generarGrafo(g,nombreHijo);
         }
-        return null;
+
+         
+
+        
+        return null
+
 
     }
     

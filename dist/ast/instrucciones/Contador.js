@@ -19,15 +19,16 @@ class Contador extends Instruccion_1.Instruccion {
     translate() {
         switch (this.tipoOperacion) {
             case Tipo_1.TipoOperacion.INCREMENTO:
-                return this.id + "++" + ";";
+                return this.id + "++; ";
             case Tipo_1.TipoOperacion.DECREMENTO:
-                return this.id + "--" + ";";
+                return this.id + "--;";
         }
         return "";
     }
     generarGrafo(g, padre) {
+        //Tipooperacion
         let nombreHijo = "nodo" + g.contador;
-        g.grafo += "  " + nombreHijo + "[label=\" Tipo: " + this.id.toString() + "\"];\n";
+        g.grafo += "  " + nombreHijo + "[label=\" Tipo: " + this.tipoOperacion.toString() + "\"];\n";
         g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
         g.contador++;
         // Id
@@ -38,23 +39,9 @@ class Contador extends Instruccion_1.Instruccion {
         let padreHijo = nombreHijo;
         //Identificador
         nombreHijo = "nodo" + g.contador;
-        /*let losIds = ""
-        for(let i = 0; i<listaIds.length; i++){
-            losIds += listaIds[i]+",";
-        }
-        g.grafo += "  " + nombreHijo + "[label=\" Id: " + losIds + "\"];\n";
-        */
         g.grafo += "  " + nombreHijo + "[label=\" Id: " + this.id + "\"];\n";
         g.grafo += "  " + padreHijo + " -> " + nombreHijo + ";\n";
         g.contador++;
-        if (this.valor != null) {
-            //Expresion
-            nombreHijo = "nodo" + g.contador;
-            g.grafo += "  " + nombreHijo + "[label=\"" + this.valor.getNombreHijo() + "\"];\n";
-            g.grafo += "  " + padre + " -> " + nombreHijo + ";\n";
-            g.contador++;
-            this.valor.generarGrafo(g, nombreHijo);
-        }
         return null;
     }
     getNombreHijo() {

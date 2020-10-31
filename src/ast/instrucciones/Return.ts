@@ -15,16 +15,26 @@ export class Return extends Instruccion {
     }
 
     translate() {
-
-        if (this.expresion==null) {
-            return "Return;\n";
-        } else{
+        if (this.expresion==null){
+            return "Return();\n";
+        }else {
             return "Return("+this.expresion.translate()+");\n";
         }
         
     }
 
     generarGrafo(g: ValorGrafo, padre: String) {
+
+
+        if (this.expresion==null){
+        //Condicion
+        let nombreHijo = "nodo"+g.contador;
+        g.grafo += "  "+nombreHijo +"[label=\"vacio\"];\n";
+        g.grafo += "  "+padre +" -> "+ nombreHijo+";\n";
+        g.contador++;
+        padre = nombreHijo;
+
+        } else {
         let nombreHijo = "nodo"+g.contador;
         g.grafo += "  "+nombreHijo +"[label=\""+ this.expresion.getNombreHijo() +"\"];\n";
         g.grafo += "  "+padre +" -> "+ nombreHijo+";\n";
@@ -32,6 +42,7 @@ export class Return extends Instruccion {
         this.expresion.generarGrafo(g,nombreHijo);
         
         return null;
+        }
     }
     getNombreHijo(): String {
         return "RETURN";

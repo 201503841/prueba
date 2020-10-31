@@ -30,6 +30,7 @@
 	const { Primitivo } = require("../dist/ast/expresiones/Primitivo");
 	const { Tipo } = require("../dist/ast/Tipo");
 	const { TipoOperacion } = require("../dist/ast/Tipo");
+      const { Parentesis } = require("../dist/ast/expresiones/Parentesis");
 %}
 %lex
 
@@ -206,7 +207,7 @@ PARAMETROSI: PARAMETROSI coma TIPO identificador     { $1.push($4); $$=$1; }
 
 
 PARAMETROS: PARAMETROS coma EXPRESION           { $1.push($3); $$=$1; }   
-          | EXPRESION                           {$$=[$1];}
+          | EXPRESION                            {$$=[$1];}
           
 ;
 
@@ -260,8 +261,8 @@ REPETICION: IF                                               { $$ = $1; }
           | CONTADOR puntoComa                               { $$ = $1; }
 ;
 
-CONTADOR: identificador incremento                    { $$= new Contador($1, $2, this._$.first_line, this._$.first_column); }                                                                                                                             
-       | identificador decremento                     { $$= new Contador($1, $2, this._$.first_line, this._$.first_column); }                                                            
+CONTADOR: identificador incremento                    { $$= new Contador($1, TipoOperacion.INCREMENTO, this._$.first_line, this._$.first_column); }                                                                                                                             
+       | identificador decremento                     { $$= new Contador($1, TipoOperacion.DECREMENTO, this._$.first_line, this._$.first_column); }                                                            
 ;
 
 
@@ -293,7 +294,7 @@ ELSEIF: else_ IF                              { $$ = new ElseIf([$2], this._$.fi
 ELSE: else_ BLOQUE_REPETICION                 { $$ = new Else($2, this._$.first_line, this._$.first_column); } 
 ;
 
-RETURN: return_ puntoComa                     { $$ = new Return( null, this._$.first_line, this._$.first_column); }
+RETURN: return_ puntoComa                     { $$ = new Return(null, this._$.first_line, this._$.first_column); }
       | return_ EXPRESION puntoComa           { $$ = new Return( $2, this._$.first_line, this._$.first_column); }
 ;
 
@@ -314,10 +315,10 @@ EXPRESION : EXPRESION mas EXPRESION		 { $$ = new OpAritmetica( TipoOperacion.SUM
       //logicas		 
 	| EXPRESION or_ EXPRESION	       { $$ = new OpLogicas( TipoOperacion.OR, $1, $3, this._$.first_line, this._$.first_column); }	
 	| EXPRESION and_ EXPRESION		 { $$ = new OpLogicas( TipoOperacion.AND, $1, $3, this._$.first_line, this._$.first_column); }
-	| not_ EXPRESION	                   { $$ = new OpLogicas( TypeOperation.NOT, $2, null, this._$.first_line, this._$.first_column); }
+	| not_ EXPRESION	                   { $$ = new OpLogicas( TipoOperation.NOT, $2, null, this._$.first_line, this._$.first_column); }
       | EXPRESION xor_ EXPRESION           { $$ = new OpLogicas( TipoOperacion.XOR, $1, $3, this._$.first_line, this._$.first_column); }
-	| menos EXP %prec uMenos		 { $$ = new OpAritmetica( TypeOperation.MENOSUNARIO, $2, null, this._$.first_line, this._$.first_column); }
-	| parAbre EXPRESION parCierra	       { $$ = $2; }
+	| menos EXP %prec uMenos		 { $$ = new OpAritmetica( TipoOperation.MENOSUNARIO, $2, null, this._$.first_line, this._$.first_column); }
+	| parAbre EXPRESION parCierra	       { $$ = new Parentesis($2,this._$.first_line, this._$.first_column);}
 	| PRIMITIVO					 { $$ = $1; }	
       | CONTADOR                           { $$ = $1; }
 ;

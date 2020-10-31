@@ -14,6 +14,13 @@ export function AnalizarJava(entrada:string):String{
             prueba = false;
             System.out.println("Esto lo verás una vez");
             int contador =0;
+            while (contador<10){
+                System.out.println ("Contador" + (contador + 1) );
+                contador++;
+            } 
+            for( int x = 0; x <= a+4; x++){
+                System.out.println("Sofia Valentina");
+            }    
             if ( a >= 5 ){
                 break;
                 continue;
@@ -21,7 +28,11 @@ export function AnalizarJava(entrada:string):String{
                 continue;
             }else{
                 hola = 12;  
+                mifuncion(x,"cadena",true);
             }
+            return;
+            
+
         }
     }
 

@@ -20,7 +20,7 @@ class For extends Instruccion_1.Instruccion {
         this.variable = variable;
     }
     translate() {
-        let cadena = "for(" + this.variable.translate() + ";" + this.valor1.translate() + ";" + this.valor2.translate() + "){\n";
+        let cadena = "for(" + this.variable.translate() + this.valor1.translate() + ";" + this.valor2.translate() + "){\n";
         for (const ins of this.instrucciones) {
             cadena += ins.translate();
         }

@@ -9,6 +9,9 @@ public class Prueba {
             System.out.println ("Contador" + (contador + 1) );
             contador++;
         } while (contador<10);
+        for (i = 0; i < 5; i++) {
+             System.out.println("Mi sofibum");
+        }
         if ( a >= 5 ){
             System.out.print("me rindo");
             } else if (a < 5){
