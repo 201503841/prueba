@@ -1,21 +1,4 @@
-  **TEMA:**      **PAGINA:**
-  -------------- ------------------------------------------------ --
-                 
-  Introducción   2
-                 
-  objetivos      3
-                 
-  Análisis       4
-                 Descripción del Problema
-                 Análisis de Requerimientos de Usuario
-                 Planteo Inicial de la Solución
-                 Buenas Prácticas de Programación a Implementar
-                 
-  Diseño         6
-                 
-  Soporte        8
-                 
-  conclusiones   9
+
 
 **INTRODUCCION**
 ================
